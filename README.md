@@ -31,9 +31,12 @@ A simple Todo API with JWT-based authentication.
    ```sh
    git clone https://github.com/your-username/todo-api.git
    cd todo-api
+   ```
+
 2. Install dependencies:
    ```sh
    npm install
+   ```
 3. Create a .env file in the root directory and add your MongoDB and JWT configuration
 
 ## Running the Project
@@ -41,9 +44,11 @@ A simple Todo API with JWT-based authentication.
 1. Start the MongoDB server(if using a local MongoDB instance):
    ```sh
    mongod
+   ```
 2. Start the Node.js server:
    ```sh
    npm start
+   ```
 3. The server will be running on http://localhost:3000.
 
 ## API Endpoints
@@ -53,71 +58,79 @@ A simple Todo API with JWT-based authentication.
 - **Register a new user**
 - **Endpoint**: `POST /auth/register`
 - **Request Body**:
- ```
- {
-   "username": "testuser",
-   "password": "password123"
- }
- ```
+
+```
+{
+  "username": "testuser",
+  "password": "password123"
+}
+```
+
 - **Response**:
- - `201 Created`: User registered successfully.
- - `400 Bad Request`: Registration failed.
+- `201 Created`: User registered successfully.
+- `400 Bad Request`: Registration failed.
 
 - **Login a user**
 - **Endpoint**: `POST /auth/login`
 - **Request Body**:
- ```
- {
-   "username": "testuser",
-   "password": "password123"
- }
- ```
+
+```
+{
+  "username": "testuser",
+  "password": "password123"
+}
+```
+
 - **Response**:
- - `200 OK`: Returns a JWT token.
- - `401 Unauthorized`: Invalid credentials.
+- `200 OK`: Returns a JWT token.
+- `401 Unauthorized`: Invalid credentials.
 
 ### Task Management
 
 - **Create a new task**
 - **Endpoint**: `POST /tasks`
 - **Request Body**:
- ```
- {
-   "title": "Sample Task",
-   "description": "This is a sample task."
- }
- ```
+
+```
+{
+  "title": "Sample Task",
+  "description": "This is a sample task."
+}
+```
+
 - **Response**:
- - `201 Created`: Task created successfully.
+- `201 Created`: Task created successfully.
 
 - **Fetch all tasks**
 - **Endpoint**: `GET /tasks`
 - **Response**:
- - `200 OK`: Returns an array of tasks.
+- `200 OK`: Returns an array of tasks.
 
 - **Fetch a task by ID**
 - **Endpoint**: `GET /tasks/:id`
 - **Response**:
- - `200 OK`: Returns the task with the specified ID.
- - `404 Not Found`: Task not found.
+- `200 OK`: Returns the task with the specified ID.
+- `404 Not Found`: Task not found.
 
 - **Update a task's status**
 - **Endpoint**: `PUT /tasks/:id`
 - **Request Body**:
- ```
- {
-   "status": "completed"
- }
- ```
+
+```
+{
+  "status": "completed"
+}
+```
+
 - **Response**:
- - `200 OK`: Returns the updated task.
- - `404 Not Found`: Task not found.
+- `200 OK`: Returns the updated task.
+- `404 Not Found`: Task not found.
 
 - **Delete a task by ID**
 - **Endpoint**: `DELETE /tasks/:id`
 - **Response**:
- - `204 No Content`: Task deleted successfully.
- - `404 Not Found`: Task not found.
+- `204 No Content`: Task deleted successfully.
+- `404 Not Found`: Task not found.
 
 ## Security Considerations
 
