@@ -1,59 +1,31 @@
 const express = require('express');
+const router = express.Router();
 const Task = require('../models/Task');
 
-const router = express.Router();
-
-// POST /tasks - Create a new task
-router.post('/', async (req, res) => {
-    try {
-        const task = new Task(req.body);
-        await task.save();
-        res.status(201).send(task);
-    } catch (error) {
-        res.status(400).send(error);
-    }
-});
-
-// GET /tasks - Fetch all tasks
+// Get all tasks for the authenticated user
 router.get('/', async (req, res) => {
     try {
-        const tasks = await Task.find();
-        res.status(200).send(tasks);
-    } catch (error) {
-        res.status(500).send(error);
+        const tasks = await Task.find({ user: req.user._id });
+        res.json(tasks);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
 });
 
-// GET /tasks/:id - Fetch a task by its ID
-router.get('/:id', async (req, res) => {
-    try {
-        const task = await Task.findById(req.params.id);
-        if (!task) return res.status(404).send();
-        res.status(200).send(task);
-    } catch (error) {
-        res.status(500).send(error);
-    }
-});
+// Create a new task
+router.post('/', async (req, res) => {
+    const task = new Task({
+        title: req.body.title,
+        description: req.body.description,
+        status: req.body.status,
+        user: req.user._id
+    });
 
-// PUT /tasks/:id - Update a task's status
-router.put('/:id', async (req, res) => {
     try {
-        const task = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!task) return res.status(404).send();
-        res.status(200).send(task);
-    } catch (error) {
-        res.status(400).send(error);
-    }
-});
-
-// DELETE /tasks/:id - Delete a task by its ID
-router.delete('/:id', async (req, res) => {
-    try {
-        const task = await Task.findByIdAndDelete(req.params.id);
-        if (!task) return res.status(404).send();
-        res.status(204).send();
-    } catch (error) {
-        res.status(500).send(error);
+        const newTask = await task.save();
+        res.status(201).json(newTask);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
     }
 });
 

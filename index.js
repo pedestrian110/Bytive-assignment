@@ -29,8 +29,12 @@ mongoose.connect(dbURI, {
 .catch(err => console.error(err));
 
 
+// Routes
+const authRouter = require('./routes/auth');
 const tasksRouter = require('./routes/tasks');
-app.use('/tasks', tasksRouter);
+
+app.use('/auth', authRouter);
+app.use('/tasks', require('./middleware/auth'), tasksRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
